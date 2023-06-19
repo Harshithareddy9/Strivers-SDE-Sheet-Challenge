@@ -1,0 +1,23 @@
+vector<vector<int>> ans;
+void f(int i,int n,int k,vector<int> arr,vector<int> c,int s)
+{
+    if(i==n)
+    {
+        if(s==k)
+        {
+            ans.push_back(c);
+        }
+        return;
+    }
+   
+    f(i+1,n,k,arr,c,s);
+    c.push_back(arr[i]);
+    f(i+1,n,k,arr,c,s+arr[i]);
+}
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    // Write your code here.
+
+    f(0,n,k,arr,{},0);
+    return ans;
+}
