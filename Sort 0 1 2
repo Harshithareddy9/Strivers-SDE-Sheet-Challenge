@@ -1,0 +1,23 @@
+#include <bits/stdc++.h> 
+void sort012(int *arr, int n)
+{
+   //   Write your code here
+   int p1=0,p2=n-1,p=0;
+   while(p<=p2)
+   {
+      if(arr[p]==0)
+      {
+         swap(arr[p1],arr[p]);
+         p1++;
+         p++;
+      }
+      else if(arr[p]==2)
+      {
+         swap(arr[p],arr[p2]);
+         p2--;
+         
+      }
+      else
+        p++;
+   }
+}
