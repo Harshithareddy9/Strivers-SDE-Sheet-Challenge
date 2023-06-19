@@ -1,0 +1,26 @@
+#include <bits/stdc++.h> 
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    int n=jobs.size();
+    vector<int> vis(n,0);
+    sort(jobs.begin(),jobs.end(),[&](vector<int> a,vector<int> b)
+    {
+        return a[1]>b[1];
+    });
+    
+    int ans=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=min(n,jobs[i][0]-1);j>=0;j--)
+        {
+            if(vis[j]==0)
+            {
+                vis[j]=1;
+                ans+=jobs[i][1];
+                break;
+            }
+        }
+    }
+    return ans;
+}
