@@ -1,0 +1,59 @@
+/************************************************************
+   
+   Following is the TreeNode class structure
+   
+   class TreeNode<T>
+   { 
+   public:
+        T data; 
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+   
+        TreeNode(T data) 
+  		{ 
+            this -> data = data; 
+            left = NULL; 
+            right = NULL; 
+        }
+   };
+   
+   
+ ************************************************************/
+#include<unordered_map>
+TreeNode<int>* solver(vector<int> &inorder, vector<int> &postorder, unordered_map<int, int> &hash, int &i, int start, int end){
+    
+    if(start == end){
+        TreeNode<int>* root;
+        root = new TreeNode<int>(postorder[i]);
+        i--;
+        return root;
+    }
+    if(start > end || end < 0) return NULL;
+    
+   
+    TreeNode<int>* root;
+    root = new TreeNode<int>(postorder[i]);
+    int mid = hash[postorder[i]];
+    i--;
+    
+  
+    root->right = solver(inorder, postorder, hash, i, mid + 1, end);
+    
+  
+    root->left = solver(inorder, postorder, hash, i, start, mid-1);
+    
+    return root;
+}
+
+
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postOrder, vector<int>& inOrder) 
+{
+    
+    int n = postOrder.size();
+    unordered_map<int, int> hash;
+    for(int i = 0; i < n; i++){
+        hash[inOrder[i]] = i;
+    }
+    int i = n-1;
+    return solver(inOrder, postOrder, hash, i, 0, n-1);
+}
