@@ -1,0 +1,32 @@
+bool isValidParenthesis(string expression)
+{
+    // Write your code here.
+    stack<char> s;
+    for(auto x:expression)
+    {
+        if(s.empty()) s.push(x);
+        else if(x=='(' || x=='{' || x=='[')
+        {
+            s.push(x);
+        }
+        else
+        {
+            if(x==')' && s.top()=='(')
+            {
+                s.pop();
+            }
+            else  if(x=='}' && s.top()=='{')
+            {
+                s.pop();
+            }
+            else if(x==']' && s.top()=='[')
+            {
+                s.pop();
+            }
+            else{
+                s.push(x);
+            }
+        }
+    }
+    return s.empty();
+}
