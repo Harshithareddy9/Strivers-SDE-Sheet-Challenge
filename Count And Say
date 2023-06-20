@@ -1,0 +1,36 @@
+#include <bits/stdc++.h> 
+string writeAsYouSpeak(int n) 
+{
+	// Write your code here.	
+	if(n==1) return "1";
+	if(n==2) return "11";
+	string t="11";
+	int i=3;
+	int c;
+	while(i<=n)
+	{
+		c=0;
+		string temp="";
+		for(int i=0;i<t.size();i++)
+		{
+			if(t[i]!=t[i+1])
+			{    c++;
+                temp+=to_string(c);
+				temp+=t[i];
+				c=0;
+			}
+			else
+			{
+				c++;
+			}
+		}
+	  if(c)  
+      {
+            temp+=to_string(++c);
+			temp+=t[t.size()-1];
+	  }
+	  t=temp;
+	  i++;
+	}
+	return t;
+}
