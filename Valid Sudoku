@@ -1,0 +1,46 @@
+bool help(int r,int c,int k,int m[9][9])
+{
+    for(int i=0;i<9;i++)
+    {
+        if(m[r][i]==k) return false;
+        if(m[i][c]==k) return false;
+        if(m[3*(r/3)+i/3][3*(c/3)+i%3]==k) return false;
+
+    }
+    return true;
+}
+bool f(int matrix[9][9])
+{
+    for(int i=0;i<9;i++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            if(matrix[i][j]==0)
+            {
+                for(int k=1;k<=9;k++)
+                {
+                    
+                    if(help(i,j,k,matrix))
+                    {
+                        matrix[i][j]=k;
+                        if(f(matrix))
+                        {
+                            return true;
+                        }
+                        else{
+                            matrix[i][j]=0;
+                        }
+                    }
+                    
+                }
+                 return false;
+            }
+           
+        }
+    }
+    return true;
+}
+bool isItSudoku(int matrix[9][9]) {
+    // Write your code here.
+    return f(matrix);
+}
