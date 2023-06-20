@@ -1,0 +1,21 @@
+void f(int i,int j,vector<vector<int>> &image,int o,int n,vector<vector<int>>&ans,vector<vector<int>>&vis)
+{
+    if(i<0 || j<0 || i>=image.size() || j>=image[0].size() || image[i][j]!=o) return;
+    if(vis[i][j]==1) return;
+    ans[i][j]=n;
+    vis[i][j]=1;
+    f(i-1,j,image,o,n,ans,vis);
+    f(i+1,j,image,o,n,ans,vis);
+    f(i,j-1,image,o,n,ans,vis);
+    f(i,j+1,image,o,n,ans,vis);
+}
+vector<vector<int>> floodFill(vector<vector<int>> &image, int x, int y, int newColor)
+{
+    // Write your code here.
+    vector<vector<int>> vis(image.size(),vector<int>(image[0].size(),0));
+    vector<vector<int>> ans;
+    ans=image;
+    int o=image[x][y];
+    f(x,y,image,o,newColor,ans,vis);
+    return ans;
+}
