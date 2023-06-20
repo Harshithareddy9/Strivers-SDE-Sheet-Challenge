@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+// Stack class.
+class Stack {
+private:
+    int* arr;
+    int t;
+    int max_size;
+
+public:
+    
+    Stack(int capacity) {
+        arr = new int[capacity];
+        t = 0;
+        max_size = capacity;
+    }
+
+    void push(int num) {
+        if(t != max_size){
+            arr[t] = num;
+            t++;
+        }
+    }
+
+    int pop() {
+        if(t!= 0){
+            t--;
+            return arr[t];
+        }
+        return -1;
+    }
+    
+    int top() {
+        return (t!= 0)?(arr[t - 1]):(-1);
+    }
+    
+    int isEmpty() {
+        return (t== 0)?(1):(0);
+    }
+    
+    int isFull() {
+        return (t == max_size);
+    }
+    
+};
