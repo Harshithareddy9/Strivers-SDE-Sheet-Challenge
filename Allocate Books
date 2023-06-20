@@ -1,0 +1,56 @@
+#include <bits/stdc++.h> 
+bool help(long long v,int n,int m,vector<int> time)
+{ int d=1;
+	long long  c=0;
+	for(int i=0;i<m;i++)
+	{
+		
+		if(c+time[i]<=v)
+		{
+		
+		    c+=time[i];
+		}
+		else
+		{
+			            d++;
+                        if (d>n || time[i] > v) {
+                          return false;
+                        } else {
+                          c = time[i];
+                        }
+                }
+		
+	}
+	return true;
+}
+long long ans;
+void f(long long l,long long h,int n,int m,vector<int> time)
+{
+	while(l<=h)
+	{
+		long long  mid=l+(h-l)/2;
+		if(help(mid,n,m,time))
+		{
+			ans=mid;
+			h=mid-1;
+		}
+		else
+		{
+			l=mid+1;
+		}
+	}
+}
+
+long long ayushGivesNinjatest(int n, int m, vector<int> time) 
+{	
+	// Write your code here.
+	//sort(time.begin(),time.end());
+	long long  h=0;
+	for(auto x:time)
+	{
+		h+=x;
+	}
+	
+	f(1,h,n,m,time);
+	return ans;
+}
