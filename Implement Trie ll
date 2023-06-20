@@ -1,0 +1,82 @@
+#include <bits/stdc++.h> 
+class node{
+  public:
+  node* next[26];
+  int  end;
+  int pref;
+  node()
+  {
+      for(int i=0;i<26;i++)
+      {
+          next[i]=NULL;
+      }
+      end=0;
+      pref=0;
+  }
+};
+class Trie{
+node* tri;
+unordered_map<string,int> m;
+    public:
+
+    Trie(){
+        // Write your code here.
+        tri=new node();
+    }
+
+    void insert(string &word){
+        // Write your code here.
+        node* root=tri;
+        for(auto x:word)
+        {
+            if(root->next[x-'a']==NULL)
+            {
+                root->next[x-'a']=new node();
+            }
+            root=root->next[x-'a'];
+            root->pref++;
+        }
+       root->end++;
+    }
+
+    int countWordsEqualTo(string &word){
+        // Write your code here.
+         node* root=tri;
+        for(auto x:word)
+        {
+            if(root->next[x-'a']==NULL || root->next[x-'a']->pref<=0)
+            {
+                return 0;
+            }
+            root=root->next[x-'a'];
+           
+        }
+       return root->end;
+    }
+
+    int countWordsStartingWith(string &word){
+        // Write your code here.
+        node* root=tri;
+        for(auto x:word)
+        {
+            if(root->next[x-'a']==NULL || root->next[x-'a']->pref<=0)
+            {
+                return 0;
+            }
+            root=root->next[x-'a'];
+           
+        }
+       return root->pref;
+    }
+
+    void erase(string &word){
+        // Write your code here.
+        node* root=tri;
+        for(auto x:word)
+        {
+            root=root->next[x-'a'];
+            root->pref--;
+        }
+        root->end--;
+    }
+};
