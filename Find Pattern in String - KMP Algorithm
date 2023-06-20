@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+bool findPattern(string p, string s)
+{
+    // Write your code here.
+   int f=0;
+   
+    /*for(int i=0;i<s.size();i++)
+    {
+        string ans;
+        for(int j=i;j<s.size();j++)
+        {
+            ans=s.substr(i,j-i+1);
+            if(ans==p)
+            {
+                f=1;
+                break;
+            }
+        }
+        if(f) return true;
+    }*/
+    return  strstr(s.c_str(),p.c_str());
+    
+
+}
