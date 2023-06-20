@@ -1,0 +1,75 @@
+/*
+    Your Trie object will be instantiated and called as such:
+    Trie* obj = new Trie();
+    obj->insert(word);
+    bool check2 = obj->search(word);
+    bool check3 = obj->startsWith(prefix);
+ */
+
+class node
+{
+    public:
+    node* next[26];
+    bool end;
+    node()
+    {
+        for(int i=0;i<26;i++)
+        {
+            next[i]=NULL;
+        }
+        end=false;
+    }
+};
+class Trie {
+node* tri;
+public:
+
+    /** Initialize your data structure here. */
+    Trie() {
+         tri=new node();
+    }
+
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+     node* root=tri;
+     for(auto x:word)
+     {
+         if(root->next[x-'a']==NULL)
+         {
+             root->next[x-'a']=new node();
+         }
+         root=root->next[x-'a'];
+     }
+     root->end=true;
+    }
+
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+       node* root=tri;
+     for(auto x:word)
+     {
+         if(root->next[x-'a']==NULL)
+         {
+             return false;
+         }
+         root=root->next[x-'a'];
+     }
+     if(root->end) return true;
+     return false;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        node* root=tri;
+     for(auto x:prefix)
+     {
+         if(root->next[x-'a']==NULL)
+         {
+             return false;
+         }
+         root=root->next[x-'a'];
+     }
+     return true;
+
+    }
+};
