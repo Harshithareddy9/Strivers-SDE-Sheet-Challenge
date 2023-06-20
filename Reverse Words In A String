@@ -1,0 +1,33 @@
+#include<stack>
+string reverseString(string &str){
+	// Write your code here.	
+	stack<string> s;
+	string t="";
+	for(int i=0;i<str.size();i++)
+	{
+       if(str[i]==' ')
+	   {
+		   if(t.size()==0)
+		   {
+			   continue;
+		   }
+		   else{
+			   s.push(t);
+			   t="";
+		   }
+	   }
+	   else{
+		   t+=str[i];
+	   }
+	}
+	if(t.size()!=0) s.push(t);
+	string ans="";
+	while(!s.empty())
+	{
+		ans+=s.top()+" ";
+		s.pop();
+	}
+	ans.pop_back();
+	return ans;
+
+}
