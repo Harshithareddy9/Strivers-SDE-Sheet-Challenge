@@ -1,0 +1,40 @@
+#include<limits.h>
+#include<algorithm>
+/*int f(int i,int j,string a,string b)
+{ 
+	if(i>=a.size() && j>=b.size()) return 0;
+	if(i>=a.size()&& j<b.size()) return INT_MAX;
+	if(i<a.size() && j>=b.size()) return INT_MAX;
+	if(a[i]!=b[j] && i!=0) return INT_MAX;
+	if(a[i]!=b[j])
+	{
+		return f(i,j+1,a,b)+1;
+	}
+    return min(f(i+1,j+1,a,b),f(i,j+1,a,b)+1);
+}
+int minCharsforPalindrome(string str) {
+	// Write your code here.
+	string b=str;
+	reverse(b.begin(),b.end());
+	return f(0,0,str,b);
+	
+}*/
+bool palindrome(int i,int j,string &str)
+{    while(i<=j){      
+	  if(str[i]!=str[j])           
+	   return false;        i++;        j--;   
+	    }    return true; } 
+int minCharsforPalindrome(string str) 
+{ // Write your code here.
+ int n=str.length();  
+   int i=0,j=n-1;
+   while (i <= j) {
+     bool x = palindrome(i, j, str);
+     if (x)
+       break;
+     else
+       j--;
+   }
+
+   return n - j - 1;
+}
