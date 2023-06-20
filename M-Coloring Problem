@@ -1,0 +1,92 @@
+#include <bits/stdc++.h> 
+bool help(int k,int node,vector<vector<int>> &mat,vector<int>&dp)
+{
+    /*if(i+1<mat.size() && mat[i+1][j]==k) return false;
+    if(j+1<mat[0].size() && mat[i][j+1]==k) return false;
+    if(i-1>=0 && mat[i-1][j]==k) return false;
+    if(j-1>=0 && mat[i][j-1]==k) return false;
+    if(i+1<mat.size() && j+1<mat[0].size() && mat[i+1][j+1]==k) return false;
+    if(i-1>=0 && j+1<mat[0].size() && mat[i-1][j+1]==k) return false;
+    if(i+1<mat.size() && j-1>=0 && mat[i+1][j-1]==k) return false;
+    if(i-1>=0 && j-1>=0 && mat[i-1][j-1]==k) return false;
+
+    return true;*/
+    for(int i=0;i<mat.size();i++)
+    {
+        if(i!=node && mat[i][node]==1 && dp[i]==k) return false;
+    }
+   return true;
+}
+bool f(int i,int v,vector<int>&dp,vector<vector<int>> &mat, int m)
+{    if(i==v) return true;
+     for(int k=1;k<=m;k++)
+     {
+         if(help(k,i,mat,dp))
+         {
+             dp[i]=k;
+             if(f(i+1,v,dp,mat,m))
+             {
+                 return true;
+             }
+            
+             dp[i]=-1;
+             
+         }
+     }
+     return false;
+}
+string graphColoring(vector<vector<int>> &mat, int m) {
+    // Write your code here
+    vector<int> dp(mat.size(),-1);
+    if( f(0,mat.size(),dp,mat,m)) return "YES";
+    return "NO";
+}
+/*#include <bits/stdc++.h> 
+
+bool isSafe(vector<vector<int>> &mat,vector<int>&col,int curr_idx,int curr_col,int n){
+
+    for(int i=0;i<n;i++){
+
+        if(i!=curr_idx && mat[i][curr_idx]==1 && col[i]==curr_col)return false;
+
+    }
+
+    return true;
+
+}
+
+bool solve(vector<vector<int>> &mat,vector<int>&col,int curr_idx,int m,int n){
+
+    if(curr_idx==n)return true;
+
+    for(int i=1;i<=m;i++){
+
+        if(isSafe(mat,col,curr_idx,i,n)){
+
+            col[curr_idx]=i;
+
+            if(solve(mat,col,curr_idx+1,m,n))return true;
+
+            col[curr_idx]=-1;
+
+        }
+
+    }
+
+    return false;
+
+}
+
+string graphColoring(vector<vector<int>> &mat, int m) {
+
+    // Write your code here
+
+    int n=mat.size();
+
+    vector<int>col(n,-1);
+
+    if(solve(mat,col,0,m,n))return "YES";
+
+    return "NO";
+
+}*/
