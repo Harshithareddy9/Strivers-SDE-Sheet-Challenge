@@ -1,0 +1,33 @@
+vector<int> nextSmallerElement(vector<int> &arr, int n)
+{
+    // Write your code here.
+    
+    vector<int> ans(n);
+    vector<int> s;
+    for(int i=n-1;i>=0;i--)
+    {
+        if(s.size()==0) 
+        {
+            ans[i]=-1;
+            s.push_back(arr[i]);
+        }
+        else{
+            while(!s.empty() && arr[i]<=s[s.size()-1])
+            {
+                s.pop_back();
+            }
+            if(s.size() ==0)
+        {
+            ans[i]=-1;
+            s.push_back(arr[i]);
+        }
+        else{
+             ans[i]=s[s.size()-1];
+            s.push_back(arr[i]);
+        }
+
+        }
+    }
+
+  return ans;
+}
