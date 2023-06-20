@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+vector<int> merge(vector<int> a,vector<int> b)
+{
+    int m=a.size(),n=b.size();
+    int i=0,j=0,k=0;
+    vector<int> t(m+n);
+    while(i<m && j<n)
+    {
+        if(a[i]<b[j])
+        {
+            t[k++]=a[i++];
+        }
+        else
+        {
+             t[k++]=b[j++];
+        }
+    }
+    while(i<m)
+    {
+        t[k++]=a[i++];
+
+    }
+    while(j<n)
+    {
+        t[k++]=b[j++];
+    }
+    return t;
+}
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k)
+{
+    // Write your code here. 
+    int i=0,j,l=k-1;
+    while(l!=0)
+    {
+        i=0;
+        j=l;
+        while(i<j)
+        {
+          kArrays[i]=merge(kArrays[i],kArrays[j]);
+          i++;
+          j--;
+          if(i>=j)
+          {
+              l=j;
+          }
+        }
+    }
+    return kArrays[0];
+}
