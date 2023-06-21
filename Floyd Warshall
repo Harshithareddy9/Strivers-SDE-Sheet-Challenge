@@ -5,9 +5,9 @@ int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
   for (int i = 0; i < n; i++)
     mat[i][i] = 0;
 
-  for (auto i : edges) {
-    int u = i[0] - 1, v = i[1] - 1, wt = i[2];
-    mat[u][v] = wt;
+  for (auto it : edges) {
+    int  i= it[0] - 1, j = it[1] - 1, w = it[2];
+    mat[i][j] = w;
   }
  
 
