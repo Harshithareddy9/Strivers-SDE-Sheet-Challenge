@@ -1,0 +1,21 @@
+#include<vector>
+long f(int i,int n,int *den,int v,vector<vector<long>>&dp)
+{
+    if(i==n && v==0)
+    {
+        return 1;
+    }
+    if(i>=n || v<0) return 0;
+    if(v==0) return 1;
+    if(dp[i][v]!=-1) return dp[i][v];
+    return dp[i][v]= f(i+1,n,den,v,dp)+f(i,n,den,v-den[i],dp);
+
+}
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    //Write your code here
+  
+    vector<vector<long>> dp(n,vector<long>(value+1,-1));
+   return f(0,n,denominations,value,dp);
+    
+}
