@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void fs(vector<int> adj[], int S, vector<bool>&vis, stack<int> &st) {
+    vis[S] = true;
+    for(int v : adj[S]) {
+        if(!vis[v]) fs(adj,v,vis,st);
+    }
+    st.push(S);
+}
+
+void dfs(vector<int> adj[], int n,  vector<bool>&vis, vector<int> &ans) {
+    vis[n] = true;
+    ans.push_back(n);
+    for(int v : adj[n]) {
+        if(!vis[v]) dfs(adj,v,vis,ans);
+    }
+}
+
+vector<vector<int>> stronglyConnectedComponents(int n, vector<vector<int>> &edges)
+{   
+    vector<int>adj1[n],adj2[n];
+   vector<bool> vis(n,0);
+    stack<int> st;
+    vector<vector<int>> res;
+    
+    for(auto i: edges) 
+    {
+        adj1[i[0]].push_back(i[1]);
+    }
+    
+    for(int i = 0; i < n; i++){
+        if(!vis[i])
+         fs(adj1, i, vis, st);
+    }
+
+    for(auto i: edges) 
+    {
+        adj2[i[1]].push_back(i[0]); 
+    }
+    for(int i=0;i<n;i++) vis[i]=0;
+
+    while(!st.empty()) {
+        int node= st.top();
+        st.pop();
+        vector<int> ans;
+        if(!vis[node]) {dfs(adj2,node,vis,ans); res.push_back(ans);}
+    }
+    return res;
+}
