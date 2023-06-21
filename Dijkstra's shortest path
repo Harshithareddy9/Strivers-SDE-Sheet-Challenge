@@ -1,0 +1,29 @@
+#include <bits/stdc++.h> 
+vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int source) {
+    // Write your code here.
+     vector<pair<int,int>> adj[vertices];
+    for(auto i: vec){
+        adj[i[0]].push_back({i[1],i[2]});
+        adj[i[1]].push_back({i[0],i[2]});
+    }
+
+    vector<int> cost(vertices,INT_MAX);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+
+    cost[source] = 0;
+    pq.push({0,source});
+
+    while(!pq.empty()){
+        int w= pq.top().first;
+        int n=pq.top().second;
+        pq.pop();
+
+        for(auto i: adj[n]){
+            if(w + i.second < cost[i.first]){
+                cost[i.first] = w + i.second;
+                pq.push({w+ i.second,i.first});
+            }
+        }
+    }
+    return cost;
+}
