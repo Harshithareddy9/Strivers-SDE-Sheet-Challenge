@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+bool f(int i,string s,unordered_map<string,int>&m,vector<int>&dp)
+{
+    if(i==s.size()) return 1;
+    if(dp[i]!=-1) return dp[i];
+    int ans=0;
+    for(int j=i;j<s.size();j++)
+    {
+        string t=s.substr(i,j-i+1);
+        if(m.find(t)!=m.end())
+        {
+           if(f(j+1,s,m,dp))
+           {
+               ans=1;
+           }
+        }
+    }
+    return dp[i]=ans;
+}
+    
+bool wordBreak(vector < string > & arr, int n, string & s) {
+    // Write your code here.
+    unordered_map<string,int> m;
+        vector<int> dp(s.size(),-1);
+        for(auto x:arr)
+        {
+            m[x]++;
+        }
+       return f(0,s,m,dp);
+}
