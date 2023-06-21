@@ -1,0 +1,46 @@
+bool f(int i,vector<int>&p,vector<int> adj[],vector<int>&vis)
+{
+    vis[i]=1;
+    p[i]=1;
+    for(auto it:adj[i])
+    {
+        if(!vis[it])
+        {
+            
+            if(f(it,p,adj,vis))
+            {
+                return true;
+            }
+        }
+        else 
+        {
+            if(p[it]) return true;
+        }
+      
+    }
+    p[i]=0;
+    return false;
+}
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  // Write your code here.
+    vector<int> adj[n+1];
+    for(int i=0;i<edges.size();i++)
+    {
+        adj[edges[i].first].push_back(edges[i].second);
+        //adj[edges[i].second].push_back(edges[i].first);
+    }
+    vector<int> vis(n+1,0);
+    vector<int> p(n+1,0);
+    for(int i=1;i<=n;i++)
+    {
+        if(!vis[i])
+        {
+            if(f(i,p,adj,vis))
+            {
+                return 1;
+            }
+        }
+    }
+   
+    return 0;
+}
