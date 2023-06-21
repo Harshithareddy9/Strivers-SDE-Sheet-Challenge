@@ -1,0 +1,58 @@
+#include<cstring>
+int dp[2501];
+/*int f(int k,int nums[])
+    {
+        int  ans=1;
+       if(k<0) return 0;
+        if(dp[k]!=-1) return dp[k];
+        for(int j=k-1;j>=0;j--)
+        {
+          if(nums[k]>nums[j])
+          {
+            ans=max(ans + 0LL,f(j,nums)+1LL);
+          }
+        }
+        return dp[k]=ans;
+    }
+*/
+#include<vector>
+int longestIncreasingSubsequence(int nums[], int n)
+{
+    // Write Your Code here
+    /*memset(dp,-1,sizeof(dp));
+        int ans=0;
+        for(int i=n-1;i>=0;i--)
+        {
+           ans=max(ans,f(i,nums));
+        }
+        return ans;*/
+        /*int ans=1;
+        vector<int> dp(n,1);
+        for(int i=1;i<n;i++)
+        {
+          for(int j=0;j<i;j++)
+          {
+            if(nums[i]>nums[j] && i+dp[j]>dp[i])
+            {
+              dp[i]=1+dp[j];
+            }
+          }
+          ans=max(ans,dp[i]);
+        }
+        return ans;*/
+        vector<int> t;
+        t.push_back(nums[0]);
+        for(int i=1;i<n;i++)
+        {
+          if(nums[i]>t.back())
+          {
+            t.push_back(nums[i]);
+          }
+          else
+          {
+            int ind=lower_bound(t.begin(),t.end(),nums[i])-t.begin();
+            t[ind]=nums[i];
+          }
+        }
+        return t.size();
+}
