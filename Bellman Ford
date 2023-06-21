@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+#define maxi 1e9
+
+int bellmonFord(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+   
+    vector<int> dis(n + 1, maxi);
+    dis[src] = 0;
+    for(int j = 1; j < n; j++){
+        bool f = true;
+        for(int i = 0; i < m; i++){
+            if(dis[edges[i][0]] != maxi && dis[edges[i][1]] > dis[edges[i][0]] + edges[i][2]){
+                dis[edges[i][1]] = dis[edges[i][0]] + edges[i][2];
+                f = false;
+            }
+        }
+        if(f) return dis[dest];
+    }
+    
+    bool f = true;
+    for(int i = 0; i < m; i++){
+        if(dis[edges[i][1]] > dis[edges[i][0]] + edges[i][2]){
+            dis[edges[i][1]] = dis[edges[i][0]] + edges[i][2];
+           f = false;
+        }
+    }
+   
+    if(!f) return INT_MIN;
+    return dis[dest];
+}
